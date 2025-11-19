@@ -74,7 +74,7 @@ fun MostrarPokemon(pokemon: Pokemon){
             Column(modifier = Modifier.padding(10.dp)){
                 Text(text = "Nombre: ${pokemon.nombre}")
                 Text(text = "Tipo: ${pokemon.tipo}")
-                Text(text = "Descripción: ${pokemon.descripcion}")
+                Text(text = "Descripción: ${pokemon.habilidades}")
             }
         }
 
@@ -112,7 +112,7 @@ fun PokemonAlertDialog(
 
                 Text(text = "Tipo: ${pokemon.tipo}", fontSize = 18.sp)
 
-                Text(text = pokemon.descripcion, textAlign = TextAlign.Justify)
+                Text(text = pokemon.habilidades, textAlign = TextAlign.Justify)
             }
         },
         confirmButton = {

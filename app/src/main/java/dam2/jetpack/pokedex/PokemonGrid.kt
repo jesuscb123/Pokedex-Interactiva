@@ -40,7 +40,7 @@ fun MostrarListaPokemonGrid(listaPokemon: List<Pokemon>) {
         verticalArrangement = Arrangement.Center,
         horizontalArrangement = Arrangement.Center,
         content = {
-            items(listaPokemon){pokemon ->
+            items(listaPokemon){pokemon -> // Por cada pokemon llama a mostrarPokemonGrid
                 MostrarPokemonGrid(pokemon)
             }
         }
@@ -80,7 +80,7 @@ fun MostrarPokemonGrid(pokemon: Pokemon){
 
                 )
                 Text(
-                    text = "Descripción: ${pokemon.descripcion}", fontSize = 10.sp,
+                    text = "Descripción: ${pokemon.habilidades}", fontSize = 10.sp,
                     maxLines = 3,
                 )
             }
