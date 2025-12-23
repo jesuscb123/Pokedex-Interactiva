@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pokedex">
         <activity
-            android:name=".MainActivity"
+            android:name=".PokedexApp"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Pokedex">

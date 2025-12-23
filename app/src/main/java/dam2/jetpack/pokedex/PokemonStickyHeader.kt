@@ -1,5 +1,6 @@
 package dam2.jetpack.pokedex
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import dam2.jetpack.pokedex.model.Pokemon
 import dam2.jetpack.pokedex.model.Tipo
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MostrarPokemonStickyHeader(listaPokemon: List<Pokemon>) {
     val pokemonAgrupados: Map<Tipo, List<Pokemon>> = listaPokemon.groupBy { it.tipo }

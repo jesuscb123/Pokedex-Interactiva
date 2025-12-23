@@ -21,10 +21,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import dam2.jetpack.pokedex.model.Pokemon
 import dam2.jetpack.pokedex.model.Tipo
 import dam2.jetpack.pokedex.ui.theme.PokedexTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
