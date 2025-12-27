@@ -9,11 +9,3 @@ fun UsuarioEntity.toDomain(): Usuario =
         nombreUsuario = nombreUsuario,
         rol = rol
     )
-
-fun Usuario.toEntity(passwordHash: String): UsuarioEntity =
-    UsuarioEntity(
-        id = id,
-        nombreUsuario = nombreUsuario,
-        passwordHash = passwordHash,
-        rol = rol
-    )
