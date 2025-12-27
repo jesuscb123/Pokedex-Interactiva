@@ -1,9 +1,8 @@
-package dam2.jetpack.pokedex.ui.login
+package dam2.jetpack.pokedex.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dam2.jetpack.pokedex.domain.repository.IUsuarioRepository
 import dam2.jetpack.pokedex.domain.usecase.LoginUsuarioUseCase
 import dam2.jetpack.pokedex.domain.usecase.RegisterUsuarioUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +28,9 @@ class AuthViewModel @Inject constructor(
             val result = loginUserUseCase(username, password)
 
             _uiState.value = result.fold(
-                onSuccess = { AuthUiState(isLogged = true) },
+                onSuccess = {usuario ->
+                    AuthUiState(isLogged = true, rol = usuario.rol)
+                },
                 onFailure = { AuthUiState(error = it.message) }
             )
         }

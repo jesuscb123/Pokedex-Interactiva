@@ -4,5 +4,4 @@ data class Usuario(
     val id: Int,
     val nombreUsuario: String,
     val rol: Rol
-) {
-}
+)

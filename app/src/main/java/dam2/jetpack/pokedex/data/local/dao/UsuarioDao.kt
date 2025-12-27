@@ -23,7 +23,7 @@ interface UsuarioDao{
     @Query("""
         SELECT * FROM usuarios
         WHERE nombreUsuario = :nombreUsuario 
-        AND password = :password
+        AND passwordHash = :password
         LIMIT 1
     """)
     suspend fun login(nombreUsuario: String, password: String): UsuarioEntity?

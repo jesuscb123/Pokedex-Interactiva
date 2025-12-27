@@ -15,6 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -22,7 +26,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dam2.jetpack.pokedex.domain.model.Pokemon
+import dam2.jetpack.pokedex.domain.model.Rol
 import dam2.jetpack.pokedex.domain.model.Tipo
+import dam2.jetpack.pokedex.ui.auth.AuthScreen
+import dam2.jetpack.pokedex.ui.home.HomeScreen
+import dam2.jetpack.pokedex.ui.screenUsuario.MostrarListaPokemonGrid
+import dam2.jetpack.pokedex.ui.screenUsuario.MostrarPokemonLista
+import dam2.jetpack.pokedex.ui.screenUsuario.MostrarPokemonStickyHeader
 import dam2.jetpack.pokedex.ui.theme.PokedexTheme
 
 @AndroidEntryPoint
@@ -39,6 +49,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IniciarApp(){
+    var navegadorSegunRol by rememberSaveable { mutableStateOf("") }
     val listaPokemon = listOf(
         Pokemon("Pikachu", Tipo.ELECTRICO, "Usa Impactrueno y ataques eléctricos.", R.drawable.pikachu),
         Pokemon("Bulbasaur", Tipo.PLANTA, "Lanza Látigo Cepa y Drenadoras.", R.drawable.bulbasaur),
@@ -65,23 +76,36 @@ fun IniciarApp(){
             },
             bottomBar = {
                 BottomAppBar {
-                    NavigationBar { //Navigation Bar permite asignar botones de navegación para movernos entre composables.
-                        BotonesNavigation("listaPokemon", navController)
-                        BotonesNavigation("pokemonGrid", navController)
-                        BotonesNavigation("pokemonSticky", navController)
+                    if (navegadorSegunRol == ""){
+
+                    }else if(navegadorSegunRol == Rol.USER.toString()){
+                        NavigationBar {//Navigation Bar permite asignar botones de navegación para movernos entre composables.
+                            BotonesNavigation("home", navController)
+                            BotonesNavigation("listaPokemon", navController)
+                            BotonesNavigation("pokemonGrid", navController)
+                            BotonesNavigation("pokemonSticky", navController)
+                        }
                     }
+
                 }
             }
             ) { innerPadding ->
 
             NavHost( // El navHost es el que se encarga de modificar el contenido según el botón pulsado y la ruta seleccionada.
                 navController,
-                startDestination = "listaPokemon",
+                startDestination = "auth",
                 modifier = Modifier.padding(innerPadding)) {
 
-                composable("listaPokemon") {MostrarPokemonLista(listaPokemon)} //llama a las diferentes funciones composables.
-                composable("pokemonGrid") {MostrarListaPokemonGrid(listaPokemon)}
-                composable("pokemonSticky") {MostrarPokemonStickyHeader(listaPokemon)}
+                composable("auth"){AuthScreen(onAuthSuccess = { rol ->
+                    if (rol == Rol.USER){
+                        navegadorSegunRol = Rol.USER.toString()
+                        navController.navigate("home")
+                    }
+                }) }
+                composable("home") { HomeScreen() }
+                composable("listaPokemon") { MostrarPokemonLista(listaPokemon) } //llama a las diferentes funciones composables.
+                composable("pokemonGrid") { MostrarListaPokemonGrid(listaPokemon) }
+                composable("pokemonSticky") { MostrarPokemonStickyHeader(listaPokemon) }
             }
         }
     }
@@ -90,6 +114,19 @@ fun IniciarApp(){
 
 @Composable
 fun RowScope.BotonesNavigation(ruta: String, navController: NavController){ // RowScope se utiliza para que me permita usar navigationBarItem fuera del navigationBar.
+    NavigationRailItem(
+        selected = false,
+        onClick = {
+            navController.navigate(ruta)
+        },
+        icon = {
+            Text(ruta)
+        }
+    )
+}
+
+@Composable
+fun RowScope.TipoNavegacion(ruta: String, navController: NavController){
     NavigationRailItem(
         selected = false,
         onClick = {

@@ -10,7 +10,7 @@ class RegisterUsuarioUseCase @Inject constructor(
         nombreUsuario: String,
         password: String
     ): Result<Unit> {
-       return usuarioRepository.register(nombreUsuario, password)
+        return usuarioRepository.register(nombreUsuario, password)
     }
 
 

@@ -6,7 +6,7 @@ interface IUsuarioRepository {
     suspend fun login(
         nombreUsuario: String,
         password: String
-    ): Usuario?
+    ): Result<Usuario>
 
     suspend fun register(
         nombreUsuario: String,

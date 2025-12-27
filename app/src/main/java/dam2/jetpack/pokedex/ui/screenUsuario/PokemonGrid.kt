@@ -1,4 +1,4 @@
-package dam2.jetpack.pokedex
+package dam2.jetpack.pokedex.ui.screenUsuario
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

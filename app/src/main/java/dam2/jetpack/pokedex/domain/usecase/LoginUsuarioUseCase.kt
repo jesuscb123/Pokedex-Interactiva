@@ -8,17 +8,10 @@ import javax.inject.Inject
 class LoginUsuarioUseCase @Inject constructor(
     private val usuarioRepository: IUsuarioRepository
 ) {
-
-    operator suspend fun invoke(user: String, pass: String): Result<Usuario> {
-        return try {
-            val usuario = usuarioRepository.login(user, pass)
-            if (usuario != null) {
-                Result.success(usuario)
-            } else {
-                Result.failure(Exception("Credenciales incorrectas"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    suspend operator fun invoke(
+        nombreUsuario: String,
+        password: String
+    ): Result<Usuario> {
+        return usuarioRepository.login(nombreUsuario, password)
     }
 }
