@@ -8,9 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import dam2.jetpack.pokedex.model.Pokemon
-import dam2.jetpack.pokedex.model.Tipo
+import dam2.jetpack.pokedex.domain.model.Pokemon
+import dam2.jetpack.pokedex.domain.model.Tipo
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

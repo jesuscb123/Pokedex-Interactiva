@@ -1,4 +1,4 @@
-package dam2.jetpack.pokedex.model
+package dam2.jetpack.pokedex.domain.model
 
 import androidx.compose.ui.graphics.Color
 

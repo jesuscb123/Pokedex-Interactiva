@@ -3,7 +3,7 @@ package dam2.jetpack.pokedex.data.local.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import dam2.jetpack.pokedex.model.Rol
+import dam2.jetpack.pokedex.domain.model.Rol
 
 @Entity(
     tableName = "usuarios",
@@ -12,6 +12,6 @@ import dam2.jetpack.pokedex.model.Rol
 data class UsuarioEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val nombreUsuario: String,
-    val password: String,
+    val passwordHash: String,
     val rol: Rol = Rol.USER
 )
