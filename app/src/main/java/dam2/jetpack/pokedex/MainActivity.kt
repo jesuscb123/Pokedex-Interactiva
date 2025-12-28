@@ -74,21 +74,6 @@ fun IniciarApp(){
                 TopAppBar(title = {
                     Text(text = "Pokedex")
                 })
-            },
-            bottomBar = {
-                BottomAppBar {
-                    if (navegadorSegunRol == ""){
-
-                    }else if(navegadorSegunRol == Rol.USER.toString()){
-                        NavigationBar {//Navigation Bar permite asignar botones de navegación para movernos entre composables.
-                            BotonesNavigation("home", navController)
-                            BotonesNavigation("listaPokemon", navController)
-                            BotonesNavigation("pokemonGrid", navController)
-                            BotonesNavigation("pokemonSticky", navController)
-                        }
-                    }
-
-                }
             }
             ) { innerPadding ->
 
@@ -111,35 +96,10 @@ fun IniciarApp(){
                 composable("pokemonGrid") { MostrarListaPokemonGrid(listaPokemon) }
                 composable("pokemonSticky") { MostrarPokemonStickyHeader(listaPokemon) }
                 composable("register") { RegisterScreen(onRegisterSucces = { navController.navigate("auth") }) }
+
             }
         }
     }
 }
 
-
-@Composable
-fun RowScope.BotonesNavigation(ruta: String, navController: NavController){ // RowScope se utiliza para que me permita usar navigationBarItem fuera del navigationBar.
-    NavigationRailItem(
-        selected = false,
-        onClick = {
-            navController.navigate(ruta)
-        },
-        icon = {
-            Text(ruta)
-        }
-    )
-}
-
-@Composable
-fun RowScope.TipoNavegacion(ruta: String, navController: NavController){
-    NavigationRailItem(
-        selected = false,
-        onClick = {
-            navController.navigate(ruta)
-        },
-        icon = {
-            Text(ruta)
-        }
-    )
-}
 

@@ -3,23 +3,35 @@ package dam2.jetpack.pokedex.ui.auth
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -33,6 +45,7 @@ fun AuthScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
+    // Manejo de la navegación si el login es exitoso
     LaunchedEffect(state.isLogged) {
         val stateActual = state
         if (stateActual.isLogged && stateActual.rol != null) {
@@ -40,46 +53,89 @@ fun AuthScreen(
         }
     }
 
+    // Variables de estado local para el formulario
+    var nombreUsuario by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center
+            .padding(24.dp), // Un poco más de margen general
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        var nombreUsuario by rememberSaveable { mutableStateOf("") }
-        var password by rememberSaveable { mutableStateOf("") }
+        // Título
+        Text(
+            text = "Bienvenido",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
 
-        OutlinedTextField(
+        Spacer(modifier = Modifier.height(32.dp))
+
+        //CAMPO USUARIO
+        TextField(
             value = nombreUsuario,
             onValueChange = { nombreUsuario = it },
             label = { Text("Nombre de usuario") },
-            singleLine = true
-        )
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            singleLine = true
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { viewModel.login(nombreUsuario, password) },
-            enabled = !state.isLoading
-        ) {
-            Text("Login")
+        // CAMPO PASSWORD
+        TextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Contraseña") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // BOTÓN LOGIN O LOADING
+        if (state.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            Button(
+                onClick = { viewModel.login(nombreUsuario, password) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                enabled = nombreUsuario.isNotBlank() && password.isNotBlank()
+            ) {
+                Text("Iniciar Sesión")
+            }
         }
 
-        Text("Registro", modifier = Modifier.clickable(onClick = {
-            navController.navigate("register")
-        }))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        state.error?.let {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(it, color = MaterialTheme.colorScheme.error)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text("¿No tienes cuenta? ")
+            Text(
+                text = "Regístrate",
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .clickable { navController.navigate("register") }
+                    .padding(4.dp),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+        state.error?.let { msg ->
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = msg,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }

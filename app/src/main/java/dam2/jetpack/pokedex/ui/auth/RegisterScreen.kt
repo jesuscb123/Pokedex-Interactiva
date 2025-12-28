@@ -55,25 +55,29 @@ fun RegisterScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
-        Text("Registrarse", style = MaterialTheme.typography.headlineMedium)
+        Text("Registrarse",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary)
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Text("Nombre de usuario")
+        // USUARIO
         TextField(
             value = nombreUsuario,
             onValueChange = { nombreUsuario = it },
+            label = { Text("Nombre de usuario") },
             singleLine = true
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        //PASSWORD
         Text("Contraseña")
         TextField(
             value = password,
             onValueChange = { password = it },
+            label = { Text("Contraseña") },
             singleLine = true
-            // visualTransformation = PasswordVisualTransformation() // Descomenta para ocultar
         )
 
         Spacer(modifier = Modifier.height(16.dp))
