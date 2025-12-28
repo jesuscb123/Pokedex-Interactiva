@@ -1,6 +1,5 @@
-package dam2.jetpack.pokedex.domain.usecase
+package dam2.jetpack.pokedex.domain.usecase.usuarios
 
-import dam2.jetpack.pokedex.data.local.entity.UsuarioEntity
 import dam2.jetpack.pokedex.domain.model.Usuario
 import dam2.jetpack.pokedex.domain.repository.IUsuarioRepository
 import javax.inject.Inject

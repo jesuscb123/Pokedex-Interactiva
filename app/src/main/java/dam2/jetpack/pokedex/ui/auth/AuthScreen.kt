@@ -46,10 +46,13 @@ fun AuthScreen(
     val state by viewModel.uiState.collectAsState()
 
     // Manejo de la navegación si el login es exitoso
-    LaunchedEffect(state.isLogged) {
-        val stateActual = state
-        if (stateActual.isLogged && stateActual.rol != null) {
-            onAuthSuccess(stateActual.rol)
+    LaunchedEffect(state) {
+        if (state.isLogged){
+            val rolSeguro = state.rol ?: Rol.USER
+
+            println(rolSeguro)
+
+            onAuthSuccess(rolSeguro)
         }
     }
 

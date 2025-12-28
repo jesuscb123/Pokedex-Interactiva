@@ -25,7 +25,9 @@ object DatabaseModule {
             context,
             PokedexDatabase::class.java,
             "pokedex_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Provides
     fun provideUsuarioDao(

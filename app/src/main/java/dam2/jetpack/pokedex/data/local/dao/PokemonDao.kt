@@ -1,11 +1,13 @@
 package dam2.jetpack.pokedex.data.local.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import dam2.jetpack.pokedex.data.local.entity.PokemonEntity
 
+@Dao
 interface PokemonDao {
     @Query("SELECT * FROM pokemon_tabla")
     suspend fun getAllPokemons(): List<PokemonEntity>

@@ -65,8 +65,9 @@ fun MostrarPokemon(pokemon: Pokemon){
             mostrar = true
         })){
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else dam2.jetpack.pokedex.R.drawable.ic_launcher_foreground
             Image(
-                painter = painterResource(pokemon.imagen),
+                painter = painterResource(id = imagenAUsar ),
                 contentDescription = pokemon.nombre,
                 modifier = Modifier.size(60.dp))
 
@@ -102,9 +103,9 @@ fun PokemonAlertDialog(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-
+                val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else dam2.jetpack.pokedex.R.drawable.ic_launcher_foreground
                 Image(
-                    painter = painterResource(id = pokemon.imagen),
+                    painter = painterResource(imagenAUsar),
                     contentDescription = "Imagen de ${pokemon.nombre}",
                     modifier = Modifier.size(150.dp)
                 )

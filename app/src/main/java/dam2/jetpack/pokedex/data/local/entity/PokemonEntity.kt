@@ -8,7 +8,7 @@ import dam2.jetpack.pokedex.domain.model.Tipo
 data class PokemonEntity(
     @PrimaryKey
     val nombre: String,
-    val tipo: Tipo,
+    val tipo: String,
     val habilidades: String,
     val imagenResId: Int
 )

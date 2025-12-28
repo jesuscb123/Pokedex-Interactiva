@@ -30,6 +30,9 @@ fun HomeScreen(navController: NavController, rol: String) {
 
         }else{
 
+            Button(onClick = { navController.navigate("insertarPokemon") }) {
+                Text("Insertar Pokémon")
+            }
         }
 
     }

@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dam2.jetpack.pokedex.domain.model.Rol
-import dam2.jetpack.pokedex.domain.usecase.LoginUsuarioUseCase
-import dam2.jetpack.pokedex.domain.usecase.RegisterUsuarioUseCase
-import dam2.jetpack.pokedex.domain.usecase.VerificarExisteUsuarioUseCase
+import dam2.jetpack.pokedex.domain.usecase.usuarios.LoginUsuarioUseCase
+import dam2.jetpack.pokedex.domain.usecase.usuarios.RegisterUsuarioUseCase
+import dam2.jetpack.pokedex.domain.usecase.usuarios.VerificarExisteUsuarioUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,7 +50,7 @@ class AuthViewModel @Inject constructor(
                     val result = registerUsuarioUseCase(nombreUsuario, password, rol)
 
                     result.fold(
-                        onSuccess = { AuthUiState(isLogged = true) },
+                        onSuccess = { AuthUiState(isLogged = true, rol = rol) },
                         onFailure = { AuthUiState(error = it.message) }
                     )
                 },
