@@ -33,7 +33,8 @@ class UsuarioRepositoryImpl @Inject constructor(
 
     override suspend fun register(
         nombreUsuario: String,
-        password: String
+        password: String,
+        rol: Rol
     ): Result<Unit> {
 
         val hash = PasswordHasher.hash(password)
@@ -42,9 +43,17 @@ class UsuarioRepositoryImpl @Inject constructor(
             UsuarioEntity(
                 nombreUsuario = nombreUsuario,
                 passwordHash = hash,
-                rol = Rol.USER
+                rol = rol
             )
         )
+
+        return Result.success(Unit)
+    }
+
+    override suspend fun verificarUsuarioExiste(nombreUsuario: String): Result<Unit> {
+        val usuarioExiste = usuarioDao.findByNombreUsuario(nombreUsuario)
+
+        if (usuarioExiste != null) return Result.failure(Exception("El usuario ya existe"))
 
         return Result.success(Unit)
     }

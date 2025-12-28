@@ -1,5 +1,6 @@
 package dam2.jetpack.pokedex.domain.usecase
 
+import dam2.jetpack.pokedex.domain.model.Rol
 import dam2.jetpack.pokedex.domain.repository.IUsuarioRepository
 import javax.inject.Inject
 
@@ -8,9 +9,10 @@ class RegisterUsuarioUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         nombreUsuario: String,
-        password: String
+        password: String,
+        rol: Rol
     ): Result<Unit> {
-        return usuarioRepository.register(nombreUsuario, password)
+        return usuarioRepository.register(nombreUsuario, password, rol)
     }
 
 

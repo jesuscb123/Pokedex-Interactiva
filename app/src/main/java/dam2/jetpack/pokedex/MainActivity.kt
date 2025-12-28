@@ -29,6 +29,7 @@ import dam2.jetpack.pokedex.domain.model.Pokemon
 import dam2.jetpack.pokedex.domain.model.Rol
 import dam2.jetpack.pokedex.domain.model.Tipo
 import dam2.jetpack.pokedex.ui.auth.AuthScreen
+import dam2.jetpack.pokedex.ui.auth.RegisterScreen
 import dam2.jetpack.pokedex.ui.home.HomeScreen
 import dam2.jetpack.pokedex.ui.screenUsuario.MostrarListaPokemonGrid
 import dam2.jetpack.pokedex.ui.screenUsuario.MostrarPokemonLista
@@ -96,16 +97,20 @@ fun IniciarApp(){
                 startDestination = "auth",
                 modifier = Modifier.padding(innerPadding)) {
 
-                composable("auth"){AuthScreen(onAuthSuccess = { rol ->
-                    if (rol == Rol.USER){
-                        navegadorSegunRol = Rol.USER.toString()
-                        navController.navigate("home")
-                    }
-                }) }
+                composable("auth"){AuthScreen(
+                    onAuthSuccess = { rol ->
+                        if (rol == Rol.USER) {
+                            navegadorSegunRol = Rol.USER.toString()
+                            navController.navigate("home")
+                        }
+                    },
+                    navController = navController
+                ) }
                 composable("home") { HomeScreen() }
                 composable("listaPokemon") { MostrarPokemonLista(listaPokemon) } //llama a las diferentes funciones composables.
                 composable("pokemonGrid") { MostrarListaPokemonGrid(listaPokemon) }
                 composable("pokemonSticky") { MostrarPokemonStickyHeader(listaPokemon) }
+                composable("register") { RegisterScreen(onRegisterSucces = { navController.navigate("auth") }) }
             }
         }
     }

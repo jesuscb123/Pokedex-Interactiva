@@ -1,5 +1,6 @@
 package dam2.jetpack.pokedex.ui.auth
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,16 +17,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import dam2.jetpack.pokedex.domain.model.Rol
 
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
-    onAuthSuccess: (Rol) -> Unit
+    onAuthSuccess: (Rol) -> Unit,
+    navController: NavController
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -43,13 +47,13 @@ fun AuthScreen(
         verticalArrangement = Arrangement.Center
     ) {
 
-        var username by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
+        var nombreUsuario by rememberSaveable { mutableStateOf("") }
+        var password by rememberSaveable { mutableStateOf("") }
 
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") },
+            value = nombreUsuario,
+            onValueChange = { nombreUsuario = it },
+            label = { Text("Nombre de usuario") },
             singleLine = true
         )
 
@@ -63,18 +67,15 @@ fun AuthScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { viewModel.login(username, password) },
+            onClick = { viewModel.login(nombreUsuario, password) },
             enabled = !state.isLoading
         ) {
             Text("Login")
         }
 
-        Button(
-            onClick = { viewModel.register(username, password) },
-            enabled = !state.isLoading
-        ) {
-            Text("Register")
-        }
+        Text("Registro", modifier = Modifier.clickable(onClick = {
+            navController.navigate("register")
+        }))
 
         state.error?.let {
             Spacer(modifier = Modifier.height(8.dp))

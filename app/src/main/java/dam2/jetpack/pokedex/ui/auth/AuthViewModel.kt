@@ -3,8 +3,10 @@ package dam2.jetpack.pokedex.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dam2.jetpack.pokedex.domain.model.Rol
 import dam2.jetpack.pokedex.domain.usecase.LoginUsuarioUseCase
 import dam2.jetpack.pokedex.domain.usecase.RegisterUsuarioUseCase
+import dam2.jetpack.pokedex.domain.usecase.VerificarExisteUsuarioUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,18 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val loginUserUseCase: LoginUsuarioUseCase,
-    private val registerUserUseCase: RegisterUsuarioUseCase
+    private val loginUsuarioUseCase: LoginUsuarioUseCase,
+    private val registerUsuarioUseCase: RegisterUsuarioUseCase,
+    private val verificarExisteUsuarioUseCase: VerificarExisteUsuarioUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
-    fun login(username: String, password: String) {
+    fun login(nombreUsuario: String, password: String) {
         viewModelScope.launch {
             _uiState.value = AuthUiState(isLoading = true)
 
-            val result = loginUserUseCase(username, password)
+            val result = loginUsuarioUseCase(nombreUsuario, password)
 
             _uiState.value = result.fold(
                 onSuccess = {usuario ->
@@ -36,18 +39,28 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun register(username: String, password: String) {
+    fun register(nombreUsuario: String, password: String, rol: Rol) {
         viewModelScope.launch {
             _uiState.value = AuthUiState(isLoading = true)
 
-            val result = registerUserUseCase(username, password)
+            val usuarioExiste = verificarExisteUsuarioUseCase(nombreUsuario)
 
-            _uiState.value = result.fold(
-                onSuccess = { AuthUiState(isLogged = true) },
-                onFailure = { AuthUiState(error = it.message) }
+           _uiState.value =  usuarioExiste.fold(
+                onSuccess = {
+                    val result = registerUsuarioUseCase(nombreUsuario, password, rol)
+
+                    result.fold(
+                        onSuccess = { AuthUiState(isLogged = true) },
+                        onFailure = { AuthUiState(error = it.message) }
+                    )
+                },
+                onFailure = {AuthUiState(error = it.message)}
             )
+
+
         }
     }
+
 
     fun clearError() {
         _uiState.update { it.copy(error = null) }
