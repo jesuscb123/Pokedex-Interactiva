@@ -6,6 +6,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dam2.jetpack.pokedex.data.repository.PokemonRepositoryImpl
+import dam2.jetpack.pokedex.domain.repository.IPokemonRepository
 import javax.inject.Singleton
 
 @Module
@@ -17,4 +19,9 @@ abstract class RepositoryModule {
     abstract fun bindUsuarioRepository(
         impl: UsuarioRepositoryImpl
     ): IUsuarioRepository
+
+    @Binds
+    abstract fun bindPokemonRepository(
+        pokemonRepositoryImpl: PokemonRepositoryImpl
+    ): IPokemonRepository
 }

@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IniciarApp(){
-    var navegadorSegunRol by rememberSaveable { mutableStateOf("") }
+    var rolActual by rememberSaveable { mutableStateOf("") }
     val listaPokemon = listOf(
         Pokemon("Pikachu", Tipo.ELECTRICO, "Usa Impactrueno y ataques eléctricos.", R.drawable.pikachu),
         Pokemon("Bulbasaur", Tipo.PLANTA, "Lanza Látigo Cepa y Drenadoras.", R.drawable.bulbasaur),
@@ -85,13 +85,13 @@ fun IniciarApp(){
                 composable("auth"){AuthScreen(
                     onAuthSuccess = { rol ->
                         if (rol == Rol.USER) {
-                            navegadorSegunRol = Rol.USER.toString()
+                            rolActual = Rol.USER.toString()
                             navController.navigate("home")
                         }
                     },
                     navController = navController
                 ) }
-                composable("home") { HomeScreen() }
+                composable("home") { HomeScreen(navController, rolActual) }
                 composable("listaPokemon") { MostrarPokemonLista(listaPokemon) } //llama a las diferentes funciones composables.
                 composable("pokemonGrid") { MostrarListaPokemonGrid(listaPokemon) }
                 composable("pokemonSticky") { MostrarPokemonStickyHeader(listaPokemon) }

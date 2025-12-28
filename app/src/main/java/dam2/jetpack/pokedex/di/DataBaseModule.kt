@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dam2.jetpack.pokedex.data.local.dao.PokemonDao
 import dam2.jetpack.pokedex.data.local.database.PokedexDatabase
 import javax.inject.Singleton
 
@@ -28,6 +29,8 @@ object DatabaseModule {
 
     @Provides
     fun provideUsuarioDao(
-        database: PokedexDatabase
-    ): UsuarioDao = database.usuarioDao()
+        database: PokedexDatabase): UsuarioDao = database.usuarioDao()
+
+    @Provides
+    fun providePokemonDao(database: PokedexDatabase): PokemonDao = database.PokemonDao()
 }
