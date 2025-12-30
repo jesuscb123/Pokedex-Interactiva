@@ -1,4 +1,4 @@
-package dam2.jetpack.pokedex.ui.screenUsuario
+package dam2.jetpack.pokedex.ui.usuarios.screenUsuario
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dam2.jetpack.pokedex.R
 import dam2.jetpack.pokedex.domain.model.Pokemon
 
 @Composable
@@ -59,7 +60,7 @@ fun MostrarPokemonGrid(pokemon: Pokemon){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else dam2.jetpack.pokedex.R.drawable.ic_launcher_foreground
+            val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else R.drawable.ic_launcher_foreground
             Image(
                 painter = painterResource(imagenAUsar),
                 contentDescription = pokemon.nombre,

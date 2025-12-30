@@ -35,10 +35,10 @@ fun RegisterScreen(
     onRegisterSucces: () -> Unit
 ){
     var nombreUsuario by rememberSaveable { mutableStateOf("") }
-    // CAMBIADO: 'var' en vez de 'val' para poder escribir
+
     var password by rememberSaveable { mutableStateOf("") }
 
-    // CAMBIADO: Variable para guardar el Rol seleccionado. Por defecto ENTRENADOR.
+
     var selectedRol by rememberSaveable { mutableStateOf(Rol.USER) }
 
     val state by viewmodel.uiState.collectAsState()

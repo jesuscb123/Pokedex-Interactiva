@@ -1,4 +1,4 @@
-package dam2.jetpack.pokedex.ui.screenUsuario
+package dam2.jetpack.pokedex.ui.usuarios.screenUsuario
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dam2.jetpack.pokedex.R
 import dam2.jetpack.pokedex.domain.model.Pokemon
 
 @Composable
@@ -65,7 +66,7 @@ fun MostrarPokemon(pokemon: Pokemon){
             mostrar = true
         })){
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else dam2.jetpack.pokedex.R.drawable.ic_launcher_foreground
+            val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else R.drawable.ic_launcher_foreground
             Image(
                 painter = painterResource(id = imagenAUsar ),
                 contentDescription = pokemon.nombre,
@@ -103,7 +104,7 @@ fun PokemonAlertDialog(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else dam2.jetpack.pokedex.R.drawable.ic_launcher_foreground
+                val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else R.drawable.ic_launcher_foreground
                 Image(
                     painter = painterResource(imagenAUsar),
                     contentDescription = "Imagen de ${pokemon.nombre}",

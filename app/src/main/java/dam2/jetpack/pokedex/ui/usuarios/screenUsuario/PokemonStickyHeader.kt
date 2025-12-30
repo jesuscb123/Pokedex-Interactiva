@@ -1,4 +1,4 @@
-package dam2.jetpack.pokedex.ui.screenUsuario
+package dam2.jetpack.pokedex.ui.usuarios.screenUsuario
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
