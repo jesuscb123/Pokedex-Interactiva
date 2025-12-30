@@ -62,7 +62,7 @@ fun AuthScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp), // Un poco más de margen general
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -85,7 +85,6 @@ fun AuthScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // CAMPO PASSWORD
         TextField(
             value = password,
             onValueChange = { password = it },

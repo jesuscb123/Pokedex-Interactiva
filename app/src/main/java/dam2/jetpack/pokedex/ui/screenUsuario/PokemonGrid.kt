@@ -34,7 +34,7 @@ fun MostrarListaPokemonGrid(listaPokemon: List<Pokemon>) {
         verticalArrangement = Arrangement.Center,
         horizontalArrangement = Arrangement.Center,
         content = {
-            items(listaPokemon){pokemon -> // Por cada pokemon llama a mostrarPokemonGrid
+            items(listaPokemon){pokemon ->
                 MostrarPokemonGrid(pokemon)
             }
         }
@@ -59,8 +59,9 @@ fun MostrarPokemonGrid(pokemon: Pokemon){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            val imagenAUsar = if (pokemon.imagen > 0) pokemon.imagen else dam2.jetpack.pokedex.R.drawable.ic_launcher_foreground
             Image(
-                painter = painterResource(pokemon.imagen),
+                painter = painterResource(imagenAUsar),
                 contentDescription = pokemon.nombre,
                 modifier = Modifier.size(80.dp)
             )
