@@ -84,7 +84,6 @@ fun InsertarPokemonScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // --- SELECTOR DE TIPO ---
         Box(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
                 value = tipoSeleccionado.name,
@@ -94,7 +93,6 @@ fun InsertarPokemonScreen(
                 trailingIcon = { Icon(Icons.Default.ArrowDropDown, null) },
                 modifier = Modifier.fillMaxWidth()
             )
-            // Capa transparente para detectar el click
             Surface(
                 modifier = Modifier.matchParentSize(),
                 color = Color.Transparent,
@@ -120,7 +118,6 @@ fun InsertarPokemonScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // --- CAMPO HABILIDADES ---
         OutlinedTextField(
             value = habilidades,
             onValueChange = { habilidades = it },
@@ -132,7 +129,6 @@ fun InsertarPokemonScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- BOTÓN DE GUARDAR ---
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
@@ -142,7 +138,7 @@ fun InsertarPokemonScreen(
                         nombre = nombre,
                         tipo = tipoSeleccionado,
                         habilidades = habilidades,
-                        imagen = 0 // Aquí gestionas la imagen por defecto o añades un picker
+                        imagen = 0
                     )
                 },
                 modifier = Modifier
@@ -154,7 +150,6 @@ fun InsertarPokemonScreen(
             }
         }
 
-        // --- MENSAJE DE ERROR ---
         state.error?.let { msg ->
             Spacer(modifier = Modifier.height(16.dp))
             Text(

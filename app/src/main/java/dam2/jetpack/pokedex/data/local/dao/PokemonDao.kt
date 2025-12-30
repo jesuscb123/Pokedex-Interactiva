@@ -6,12 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import dam2.jetpack.pokedex.data.local.entity.PokemonEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
     @Query("SELECT * FROM pokemon_tabla")
-    suspend fun getAllPokemons(): List<PokemonEntity>
-
+    fun getAllPokemons(): Flow<List<PokemonEntity>>
 
     @Query("SELECT * FROM pokemon_tabla WHERE nombre = :nombre")
     suspend fun getPokemonPorNombre(nombre: String): PokemonEntity?

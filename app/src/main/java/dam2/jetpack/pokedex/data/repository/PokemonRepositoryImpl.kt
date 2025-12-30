@@ -7,18 +7,20 @@ import dam2.jetpack.pokedex.data.mapper.toEntity
 import dam2.jetpack.pokedex.domain.model.Pokemon
 import dam2.jetpack.pokedex.domain.model.Tipo
 import dam2.jetpack.pokedex.domain.repository.IPokemonRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
     private val pokemonDao: PokemonDao
 ) : IPokemonRepository {
 
-    override suspend fun getAllPokemons(): Result<List<Pokemon>> {
+    override suspend fun getAllPokemons(): Flow<List<Pokemon>> {
         val listaPokemon = pokemonDao.getAllPokemons()
 
-        if (listaPokemon.isEmpty()) return Result.failure(Exception("No hay pokémons disponibles"))
-
-        return Result.success(listaPokemon.map { it.toDomain() })
+        return listaPokemon.map { lista ->
+            lista.map { it.toDomain() }
+        }
     }
 
     override suspend fun getPokemonByName(nombre: String): Result<Pokemon?> {

@@ -82,11 +82,11 @@ fun IniciarApp(
                     onAuthSuccess = { rol ->
                         if (rol == Rol.USER) {
                             rolActual = Rol.USER.toString()
-                            navController.navigate("home")
+
                         }else{
                             rolActual = Rol.ADMIN.toString()
-                            navController.navigate("home")
                         }
+                        navController.navigate("home")
                     },
                     navController = navController
                 ) }

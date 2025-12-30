@@ -45,7 +45,7 @@ fun AuthScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
-    // Manejo de la navegación si el login es exitoso
+
     LaunchedEffect(state) {
         if (state.isLogged){
             val rolSeguro = state.rol ?: Rol.USER
@@ -56,7 +56,6 @@ fun AuthScreen(
         }
     }
 
-    // Variables de estado local para el formulario
     var nombreUsuario by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
@@ -68,7 +67,6 @@ fun AuthScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // Título
         Text(
             text = "Bienvenido",
             style = MaterialTheme.typography.headlineMedium,
@@ -77,7 +75,6 @@ fun AuthScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        //CAMPO USUARIO
         TextField(
             value = nombreUsuario,
             onValueChange = { nombreUsuario = it },
@@ -100,7 +97,6 @@ fun AuthScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // BOTÓN LOGIN O LOADING
         if (state.isLoading) {
             CircularProgressIndicator()
         } else {
